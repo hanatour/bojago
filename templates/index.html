@@ -3,16 +3,51 @@
 <!--Embed the header.html template at this location-->
 {{ template "header.html" .}}
 
-  <!--Loop over the payload variable, which is the list of articles-->
+<table class="table table-striped table-sm">
+  <thead>
+    <tr>
+      <th>배포ID</th>
+      <th>배포그룹명</th>
+      <th>애플리케이션</th>
+      <th>DeploymentStyle</th>
+      <th>생성자</th>
+      <th>시작일시</th>
+      <th>상태</th>
+    </tr>
+  </thead>
+  <tbody>
+<!--Loop over the payload variable, which is the list of articles-->
   {{range .payload }}
     <!--Create the link for the article based on its ID-->
-    <a href="/article/view/{{.ID}}">
-      <!--Display the title of the article -->
-      <h2>{{.Title}}</h2>
-    </a>
-    <!--Display the content of the article-->
-    <p>{{.Content}}</p>
+        <tr>
+          <td>
+            <a href="/article/view/{{.DeploymentId}}">
+            <!--Display the title of the article -->
+            {{.DeploymentId}}
+            </a>
+          </td>
+          <td>
+            {{.DeploymentGroupName}}
+          </td>
+          <td>
+            {{.ApplicationName}}
+          </td>
+          <td>
+            {{.DeploymentStyle}}
+          </td>
+          <td>
+            {{.Creator}}
+          </td>
+          <td>
+            {{.CreateTime}}
+          </td>
+          <td>
+            {{.Status}}
+          </td>
+        </tr>
   {{end}}
+</tbody>
+</table>
 
 <!--Embed the footer.html template at this location-->
 {{ template "footer.html" .}}

@@ -9,7 +9,7 @@ import (
 )
 
 func showIndexPage(c *gin.Context) {
-	articles := getAllArticles()
+	deployments := getDeployments()
 
 	// Call the HTML method of the Context to render a template
 	c.HTML(
@@ -20,7 +20,7 @@ func showIndexPage(c *gin.Context) {
 		// Pass the data that the page uses
 		gin.H{
 			"title":   "Home Page",
-			"payload": articles,
+			"payload": deployments,
 		},
 	)
 
