@@ -2,7 +2,11 @@
 
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"bojago/handlers"
+
+	"github.com/gin-gonic/gin"
+)
 
 var router *gin.Engine
 
@@ -16,7 +20,7 @@ func main() {
 	router.LoadHTMLGlob("templates/*")
 
 	// Handle Index
-	router.GET("/", showIndexPage)
+	router.GET("/", handlers.ShowIndexPage)
 
 	// Start serving the application
 	router.Run()

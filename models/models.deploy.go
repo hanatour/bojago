@@ -1,4 +1,4 @@
-package main
+package models
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/codedeploy/types"
 )
 
-func getDeployments() []types.DeploymentInfo {
+func GetDeployments() []types.DeploymentInfo {
 	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("ap-northeast-2"))
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)

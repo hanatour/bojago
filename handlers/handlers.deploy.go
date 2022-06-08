@@ -1,15 +1,15 @@
-// handlers.article.go
-
-package main
+package handlers
 
 import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"bojago/models"
 )
 
-func showIndexPage(c *gin.Context) {
-	deployments := getDeployments()
+func ShowIndexPage(c *gin.Context) {
+	deployments := models.GetDeployments()
 
 	// Call the HTML method of the Context to render a template
 	c.HTML(

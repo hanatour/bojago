@@ -1,4 +1,4 @@
-module helloaws
+module bojago
 
 go 1.18
 
