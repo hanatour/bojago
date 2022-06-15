@@ -9,7 +9,7 @@ import (
 )
 
 func ShowIndexPage(c *gin.Context) {
-	deployments := models.GetDeployments()
+	deployments := models.GetDeployments(models.Fnd)
 
 	// Call the HTML method of the Context to render a template
 	c.HTML(

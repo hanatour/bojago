@@ -4,14 +4,27 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/credentials"
 	"github.com/aws/aws-sdk-go-v2/service/codedeploy"
 	"github.com/aws/aws-sdk-go-v2/service/codedeploy/types"
 )
 
-func GetDeployments() []types.DeploymentInfo {
-	cfg, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("ap-northeast-2"))
+func GetDeployments(account CloudAccount) []types.DeploymentInfo {
+	var keyId string
+	var secretKey string
+	if account == HntCloud {
+		keyId = os.Getenv("AWS_ACCESS_KEY_ID_HNT")
+		secretKey = os.Getenv("AWS_SECRET_ACCESS_KEY_HNT")
+	} else if account == Fnd {
+		keyId = os.Getenv("AWS_ACCESS_KEY_ID_FND")
+		secretKey = os.Getenv("AWS_SECRET_ACCESS_KEY_FND")
+	}
+
+	cfg, err := config.LoadDefaultConfig(context.TODO(),
+		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(keyId, secretKey, "")))
 	if err != nil {
 		log.Fatalf("unable to load SDK config, %v", err)
 	}
