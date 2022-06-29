@@ -19,7 +19,7 @@ func ShowIndexPage(c *gin.Context) {
 		"index.html",
 		// Pass the data that the page uses
 		gin.H{
-			"title":   "Home Page",
+			"title":   "BojaGo",
 			"payload": deployments,
 		},
 	)
