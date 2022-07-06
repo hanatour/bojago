@@ -1,7 +1,9 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 
@@ -9,7 +11,20 @@ import (
 )
 
 func ShowIndexPage(c *gin.Context) {
-	deployments := models.GetDeployments(models.Fnd)
+	account := models.HntCloud //default account
+	queryParams := c.Request.URL.Query()
+	queryAccountKey := "account"
+	fmt.Println(queryParams)
+
+	if queryParams.Has(queryAccountKey) {
+		if acc, err := strconv.Atoi(queryParams[queryAccountKey][0]); err == nil {
+			if acc == models.Fnd {
+				account = models.Fnd
+			}
+		}
+	}
+
+	deployments := models.GetDeployments(account)
 
 	// Call the HTML method of the Context to render a template
 	c.HTML(
