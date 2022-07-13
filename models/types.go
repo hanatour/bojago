@@ -7,3 +7,13 @@ const (
 	HntCloud
 	Fnd
 )
+
+func (ca CloudAccount) String() string {
+	switch ca {
+	case HntCloud:
+		return "HNT"
+	case Fnd:
+		return "FND"
+	}
+	return ""
+}
