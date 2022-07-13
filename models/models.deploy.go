@@ -15,13 +15,10 @@ import (
 func GetDeployments(account CloudAccount) []types.DeploymentInfo {
 	var keyId string
 	var secretKey string
-	if account == HntCloud {
-		keyId = os.Getenv("AWS_ACCESS_KEY_ID_HNT")
-		secretKey = os.Getenv("AWS_SECRET_ACCESS_KEY_HNT")
-	} else if account == Fnd {
-		keyId = os.Getenv("AWS_ACCESS_KEY_ID_FND")
-		secretKey = os.Getenv("AWS_SECRET_ACCESS_KEY_FND")
-	}
+
+	fmt.Println(account)
+	keyId = os.Getenv("AWS_ACCESS_KEY_ID_" + account.String())
+	secretKey = os.Getenv("AWS_SECRET_ACCESS_KEY_" + account.String())
 
 	cfg, err := config.LoadDefaultConfig(context.TODO(),
 		config.WithCredentialsProvider(credentials.NewStaticCredentialsProvider(keyId, secretKey, "")))

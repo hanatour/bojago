@@ -5,5 +5,15 @@ type CloudAccount int
 const (
 	_ CloudAccount = iota
 	HntCloud
-	Fnd = 2
+	Fnd
 )
+
+func (ca CloudAccount) String() string {
+	switch ca {
+	case HntCloud:
+		return "HNT"
+	case Fnd:
+		return "FND"
+	}
+	return ""
+}

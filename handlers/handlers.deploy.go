@@ -3,7 +3,6 @@ package handlers
 import (
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 
@@ -17,10 +16,9 @@ func ShowIndexPage(c *gin.Context) {
 	fmt.Println(queryParams)
 
 	if queryParams.Has(queryAccountKey) {
-		if acc, err := strconv.Atoi(queryParams[queryAccountKey][0]); err == nil {
-			if acc == models.Fnd {
-				account = models.Fnd
-			}
+		acc := queryParams[queryAccountKey][0]
+		if acc == models.Fnd.String() {
+			account = models.Fnd
 		}
 	}
 
@@ -39,4 +37,8 @@ func ShowIndexPage(c *gin.Context) {
 		},
 	)
 
+}
+
+func CloudAccount(s string) {
+	panic("unimplemented")
 }
