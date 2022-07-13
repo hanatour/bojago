@@ -38,7 +38,3 @@ func ShowIndexPage(c *gin.Context) {
 	)
 
 }
-
-func CloudAccount(s string) {
-	panic("unimplemented")
-}
