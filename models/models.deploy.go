@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/credentials"
@@ -33,25 +34,34 @@ func GetDeployments(account CloudAccount) []types.DeploymentInfo {
 	}
 
 	var deps []types.DeploymentInfo
+	ch := make(chan types.DeploymentInfo)
 	fmt.Println("Deployments:")
 	for i, deployment := range resp.Deployments {
 		if i >= 20 {
 			break
 		}
-		dep := getDeployment(client, deployment)
-		deps = append(deps, *dep)
-		fmt.Println(i, deployment, *dep.ApplicationName, dep.Status)
+		go getDeployment(client, deployment, ch)
 	}
-	fmt.Println(resp.NextToken)
+	for i, _ := range resp.Deployments {
+		if i >= 20 {
+			break
+		}
+		dep := <-ch
+		//fmt.Println(*dep.ApplicationName, dep.Status)
+		deps = append(deps, dep)
+		sort.Slice(deps, func(i, j int) bool {
+			return deps[i].CreateTime.After(*deps[j].CreateTime)
+		})
+	}
 	return deps
 }
 
-func getDeployment(client *codedeploy.Client, id string) *types.DeploymentInfo {
+func getDeployment(client *codedeploy.Client, id string, ch chan types.DeploymentInfo) {
 	resp, err := client.GetDeployment(context.TODO(), &codedeploy.GetDeploymentInput{
 		DeploymentId: &id,
 	})
 	if err != nil {
 		log.Fatalf("failed to get deployment, %v", err)
 	}
-	return resp.DeploymentInfo
+	ch <- *resp.DeploymentInfo
 }
