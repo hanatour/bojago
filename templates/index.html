@@ -2,8 +2,8 @@
 
 <!--Embed the header.html template at this location-->
 {{ template "header.html" .}}
-
-<table class="table table-striped table-sm">
+<div class="table-responsive">
+<table class="table table-hover table-striped">
   <thead>
     <tr>
       <th>배포ID</th>
@@ -12,6 +12,7 @@
       <th>DeploymentStyle</th>
       <th>생성자</th>
       <th>시작일시</th>
+      <th>완료일시</th>
       <th>상태</th>
     </tr>
   </thead>
@@ -42,12 +43,15 @@
             {{.CreateTime}}
           </td>
           <td>
+            {{.CompleteTime}}
+          </td>
+          <td>
             {{.Status}}
           </td>
         </tr>
   {{end}}
 </tbody>
 </table>
-
+</div>
 <!--Embed the footer.html template at this location-->
 {{ template "footer.html" .}}
