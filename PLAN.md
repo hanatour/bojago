@@ -15,6 +15,6 @@
   - hnt-cloud에 고정인스턴스 1ea 마련
   - 도메인 등록 bojago.hanatour.com
   - github actions / aws code pipeline / aws beanstalk / ...
-  - fargate 인스턴스 사용? - 좀 배치성이라 웹서비스에는...
+  - fargate 인스턴스 사용
 - 테스트도 엄격하게 적용
 - #1 코드 정리 해결
